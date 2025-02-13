@@ -21,6 +21,37 @@
         position: relative;
       }
 
+      /* Contenedor para las galaxias (más atrás que las estrellas) */
+      .galaxy-field {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      /* Estilo para cada galaxia */
+      .galaxy {
+        position: absolute;
+        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(128,0,128,0.2) 60%, rgba(0,0,0,0) 100%);
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: pulse 5s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+
       /* Área de contenido (por encima de las estrellas) */
       .content {
         position: relative;
@@ -135,13 +166,31 @@
         box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
         z-index: 1;
       }
+
+      /* Grano de arena */
+      .sand-grain {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        background: #c2b280;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(194, 178, 128, 0.8);
+        z-index: 3;
+      }
     </style>
   </head>
   <body>
+    <!-- Contenedor para las galaxias -->
+    <div class="galaxy-field" id="galaxyField"></div>
     <!-- Campo de estrellas -->
     <div class="star-field" id="starField"></div>
     <!-- Representación de la luna -->
     <div class="moon"></div>
+    <!-- Grano de arena -->
+    <div class="sand-grain"></div>
 
     <!-- Contenido principal -->
     <div class="content">
@@ -170,6 +219,23 @@
     </div>
 
     <script>
+      // Función para generar galaxias de forma aleatoria
+      function createGalaxies(numGalaxies) {
+        const galaxyField = document.getElementById("galaxyField");
+        for (let i = 0; i < numGalaxies; i++) {
+          const galaxy = document.createElement("div");
+          galaxy.className = "galaxy";
+          galaxy.style.top = Math.random() * 100 + "%";
+          galaxy.style.left = Math.random() * 100 + "%";
+          // Tamaño aleatorio entre 50px y 100px
+          const size = Math.random() * 50 + 50;
+          galaxy.style.width = size + "px";
+          galaxy.style.height = size + "px";
+          galaxyField.appendChild(galaxy);
+        }
+      }
+      createGalaxies(5); // Genera 5 galaxias
+
       // Función para generar estrellas estáticas de forma aleatoria
       function createStars(numStars) {
         const starField = document.getElementById("starField");
@@ -191,7 +257,7 @@
         const shootingStar = document.createElement("div");
         shootingStar.className = "shooting-star";
         // Posición inicial aleatoria para la estrella fugaz
-        shootingStar.style.top = Math.random() * 70 + "%";
+        shootingStar.style.top = Math.random() * 50 + "%";
         shootingStar.style.left = Math.random() * 100 + "%";
         starField.appendChild(shootingStar);
         // Remover la estrella fugaz después de la animación
