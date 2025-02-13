@@ -78,7 +78,7 @@
         z-index: 1;
       }
 
-      /* Estilo para cada estrella */
+      /* Estilo para cada estrella estática */
       .star {
         position: absolute;
         width: 2px;
@@ -98,6 +98,28 @@
         }
         100% {
           opacity: 0.2;
+        }
+      }
+
+      /* Estrellas fugaces */
+      .shooting-star {
+        position: absolute;
+        width: 2px;
+        height: 80px;
+        background: linear-gradient(-45deg, #fff, rgba(255, 255, 255, 0));
+        transform: rotate(45deg);
+        opacity: 0;
+        animation: shooting 1s ease-out forwards;
+      }
+
+      @keyframes shooting {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) rotate(45deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-200px, 200px) rotate(45deg);
         }
       }
 
@@ -148,7 +170,7 @@
     </div>
 
     <script>
-      // Función para generar estrellas de forma aleatoria
+      // Función para generar estrellas estáticas de forma aleatoria
       function createStars(numStars) {
         const starField = document.getElementById("starField");
         for (let i = 0; i < numStars; i++) {
@@ -161,7 +183,31 @@
           starField.appendChild(star);
         }
       }
-      createStars(100); // Genera 100 estrellas
+      createStars(1000); // Genera 1000 estrellas estáticas
+
+      // Función para crear una estrella fugaz
+      function createShootingStar() {
+        const starField = document.getElementById("starField");
+        const shootingStar = document.createElement("div");
+        shootingStar.className = "shooting-star";
+        // Posición inicial aleatoria para la estrella fugaz
+        shootingStar.style.top = Math.random() * 70 + "%";
+        shootingStar.style.left = Math.random() * 100 + "%";
+        starField.appendChild(shootingStar);
+        // Remover la estrella fugaz después de la animación
+        setTimeout(() => {
+          shootingStar.remove();
+        }, 1000);
+      }
+
+      // Función para generar estrellas fugaces a intervalos aleatorios
+      function randomShootingStar() {
+        setTimeout(() => {
+          createShootingStar();
+          randomShootingStar();
+        }, Math.random() * 3000 + 2000); // Intervalo entre 2 y 5 segundos
+      }
+      randomShootingStar();
     </script>
   </body>
 </html>
