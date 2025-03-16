@@ -330,13 +330,13 @@
   </div>
   <!-- Sobre interactivo -->
   <div class="envelope" id="envelope">
-    <img src="/img/sobre.png" alt="Sobre cerrado" id="envelope-img">
+    <img src="sobre.png" alt="Sobre cerrado" id="envelope-img">
     <div class="photo">
-      <img src="/img/uandi.jpeg" alt="Foto oculta">
+      <img src="uandi.jpeg" alt="Foto oculta">
     </div>
   </div>
   <!-- Astronauta flotante -->
-  <img src="/img/as.png" alt="Astronauta flotando" class="astronaut">
+  <img src="as.png" alt="Astronauta flotando" class="astronaut">
   <script>
     // Función para generar galaxias de forma aleatoria
     function createGalaxies(numGalaxias) {
@@ -399,7 +399,7 @@
     envelope.addEventListener("click", function () {
       this.classList.toggle("open");
       if (this.classList.contains("open")) {
-        envelopeImg.src = "/img/open.png";
+        envelopeImg.src = "open.png";
         // Congelar y reposicionar el astronauta cerca del texto, aumentándolo de tamaño
         astronaut.style.animationPlayState = "paused";
         astronaut.style.top = "50%";
@@ -409,7 +409,7 @@
         originalPoem.style.display = "none";
         newPoem.style.display = "block";
       } else {
-        envelopeImg.src = "/img/sobre.png";
+        envelopeImg.src = "sobre.png";
         // Reanudar el movimiento del astronauta y restaurar su tamaño original
         astronaut.style.animationPlayState = "running";
         astronaut.style.width = "50px";
