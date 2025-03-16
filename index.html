@@ -1,431 +1,434 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Paraíso Lunar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Fondo espacial: degradado radial para simular la noche */
+      body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Oculta desbordamiento horizontal */
+        overflow-y: auto;   /* Permite scroll vertical */
+        background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+        color: #fff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* quitamos justify-content para que el contenido fluya y se pueda scrollear si es necesario */
+        min-height: 100vh;
+        position: relative;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Paraíso Lunar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    /* Fondo espacial: degradado radial para simular la noche */
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      position: relative;
-    }
+      /* Contenedor para las galaxias (más atrás que las estrellas) */
+      .galaxy-field {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: 0;
+      }
 
-    /* Contenedor para las galaxias (más atrás que las estrellas) */
-    .galaxy-field {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    /* Estilo para cada galaxia */
-    .galaxy {
-      position: absolute;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(128, 0, 128, 0.2) 60%, rgba(0,0,0,0) 100%);
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: pulse 5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
+      /* Estilo para cada galaxia */
+      .galaxy {
+        position: absolute;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(128, 0, 128, 0.2) 60%, rgba(0,0,0,0) 100%);
+        border-radius: 50%;
         opacity: 0.7;
+        animation: pulse 5s ease-in-out infinite;
       }
-      50% {
-        transform: scale(1.1);
-        opacity: 1;
+
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
       }
-    }
 
-    /* Área de contenido (por encima de las estrellas) */
-    .content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    p {
-      margin: 10px 0;
-    }
-
-    /* Efecto glow para las letras del poema */
-    .poem {
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      0% {
-        text-shadow: 0 0 10px #ff66cc, 0 0 20px #ff66cc, 0 0 30px #ff66cc;
+      /* Área de contenido (por encima de las estrellas) */
+      .content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 20px;
       }
-      100% {
-        text-shadow: 0 0 20px #ff99cc, 0 0 30px #ff99cc, 0 0 40px #ff99cc;
+
+      h1 {
+        margin-bottom: 20px;
       }
-    }
 
-    /* Reproductores de Apple Music */
-    .apple-music-player {
-      margin-top: 20px;
-    }
-
-    /* Contenedor para las estrellas */
-    .star-field {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    /* Estilo para cada estrella estática */
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #fff;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: twinkle 2s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0% {
-        opacity: 0.2;
+      p {
+        margin: 10px 0;
       }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0.2;
-      }
-    }
 
-    /* Estrellas fugaces */
-    .shooting-star {
-      position: absolute;
-      width: 2px;
-      height: 80px;
-      background: linear-gradient(-45deg, #fff, rgba(255, 255, 255, 0));
-      transform: rotate(45deg);
-      opacity: 0;
-      animation: shooting 1s ease-out forwards;
-    }
-
-    @keyframes shooting {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) rotate(45deg);
+      /* Efecto glow para las letras del poema */
+      .poem {
+        animation: glow 2s ease-in-out infinite alternate;
       }
-      100% {
-        opacity: 0;
-        transform: translate(-200px, 200px) rotate(45deg);
+
+      @keyframes glow {
+        0% {
+          text-shadow: 0 0 10px #ff66cc, 0 0 20px #ff66cc, 0 0 30px #ff66cc;
+        }
+        100% {
+          text-shadow: 0 0 20px #ff99cc, 0 0 30px #ff99cc, 0 0 40px #ff99cc;
+        }
       }
-    }
 
-    /* "Luna" en la esquina */
-    .moon {
-      position: absolute;
-      top: 10%;
-      right: 10%;
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(circle at 30% 30%, #fff, #ddd);
-      border-radius: 50%;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-      z-index: 1;
-    }
-
-    /* Grano de arena */
-    .sand-grain {
-      position: absolute;
-      bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 5px;
-      height: 5px;
-      background: #c2b280;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(194, 178, 128, 0.8);
-      z-index: 3;
-    }
-
-    /* Estilos para el sobre interactivo */
-    .envelope {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 150px;
-      height: 100px;
-      cursor: pointer;
-      z-index: 4;
-    }
-
-    .envelope img {
-      width: 100%;
-      display: block;
-    }
-
-    .envelope .photo {
-      display: none;
-      position: absolute;
-      /* Ajusta el tamaño según prefieras */
-      width: 180px;
-      height: auto;
-      /* Desplaza la foto hacia arriba y la izquierda */
-      top: -80px;
-      left: -60px;
-    }
-
-    .envelope.open .photo {
-      display: block;
-    }
-
-    /* Animación opcional para la foto al abrirse */
-    .envelope.open .photo img {
-      animation: moveImage 3s ease-in-out infinite;
-    }
-
-    @keyframes moveImage {
-      0% {
-        transform: translate(0, 0);
+      /* Reproductores de Apple Music */
+      .apple-music-player {
+        margin-top: 20px;
       }
-      50% {
-        transform: translate(5px, 5px);
-      }
-      100% {
-        transform: translate(0, 0);
-      }
-    }
 
-    /* Animación para el astronauta: recorrido continuo por la pantalla */
-    .astronaut {
-      position: absolute;
-      width: 50px;
-      z-index: 4;
-      animation: drift 60s ease-in-out infinite;
-    }
+      /* Contenedor para las estrellas */
+      .star-field {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: 1;
+      }
 
-    @keyframes drift {
-      0% {
-        top: 5%;
-        left: 5%;
-        transform: rotate(0deg);
+      /* Estilo para cada estrella estática */
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #fff;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: twinkle 2s infinite ease-in-out;
       }
-      20% {
-        top: 10%;
-        left: 80%;
-        transform: rotate(15deg);
-      }
-      40% {
-        top: 70%;
-        left: 75%;
-        transform: rotate(-10deg);
-      }
-      60% {
-        top: 80%;
-        left: 15%;
-        transform: rotate(5deg);
-      }
-      80% {
-        top: 40%;
-        left: 50%;
-        transform: rotate(-15deg);
-      }
-      100% {
-        top: 5%;
-        left: 5%;
-        transform: rotate(0deg);
-      }
-    }
 
-    /* Media Query para pantallas móviles */
-    @media (max-width: 600px) {
-      .envelope {
-        bottom: 10px;
-        right: 10px;
-        width: 120px;
+      @keyframes twinkle {
+        0% {
+          opacity: 0.2;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.2;
+        }
+      }
+
+      /* Estrellas fugaces */
+      .shooting-star {
+        position: absolute;
+        width: 2px;
         height: 80px;
+        background: linear-gradient(-45deg, #fff, rgba(255, 255, 255, 0));
+        transform: rotate(45deg);
+        opacity: 0;
+        animation: shooting 1s ease-out forwards;
       }
-      .envelope .photo {
-        top: -60px;
-        left: -40px;
+
+      @keyframes shooting {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) rotate(45deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-200px, 200px) rotate(45deg);
+        }
+      }
+
+      /* "Luna" en la esquina */
+      .moon {
+        position: absolute;
+        top: 10%;
+        right: 10%;
         width: 150px;
+        height: 150px;
+        background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+        border-radius: 50%;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        z-index: 1;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <!-- Contenedor para las galaxias -->
-  <div class="galaxy-field" id="galaxyField"></div>
-  <!-- Campo de estrellas -->
-  <div class="star-field" id="starField"></div>
-  <!-- Representación de la luna -->
-  <div class="moon"></div>
-  <!-- Grano de arena -->
-  <div class="sand-grain"></div>
-  <!-- Contenido principal -->
-  <div class="content">
-    <h1>Paraíso Lunar</h1>
-    <!-- Contenedor con el poema original -->
-    <div id="original-poem">
-      <p class="poem">
-        Y así, en el infinito lienzo del cosmos, donde la ciencia y el amor se unen
-        poniendo a prueba la ley de atracción, nuestras almas se entrelazan desafiando
-        al tiempo y espacio.
-      </p>
-      <p class="poem">
-        Feliz día hoy y siempre, porque el amor es motivo de sentirse vivos. Te amo &#10084;
-      </p>
-    </div>
-    <!-- Contenedor con el nuevo mensaje, oculto inicialmente -->
-    <div id="new-poem" style="display: none;">
-      <p class="poem">
-        Gracias por este primer mes increíble a tu lado, no hay palabras que alcancen para decirte lo que me haces
-        sentir. &#10084;
-      </p>
-      <p class="poem">
-        Te amo más que ayer y menos que mañana, vivamos hoy y amémonos hoy. &#10084;
-      </p>
-    </div>
-    <!-- Reproductor de Apple Music para la primera canción -->
-    <div class="apple-music-player">
-      <iframe id="apple-music-iframe" allow="autoplay; encrypted-media" frameborder="0" height="150"
-        style="width: 100%; max-width: 660px; overflow: hidden; background: transparent;"
-        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-        src="https://embed.music.apple.com/mx/album/para%C3%ADso-lunar/1586251628?i=1586251636">
-      </iframe>
-    </div>
-    <!-- Reproductor de Apple Music para la segunda canción -->
-    <div class="apple-music-player">
-      <iframe id="apple-music-iframe2" allow="autoplay; encrypted-media" frameborder="0" height="150"
-        style="width: 100%; max-width: 660px; overflow: hidden; background: transparent;"
-        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-        src="https://embed.music.apple.com/mx/album/conmigo-siempre/1464557440?i=1464557447">
-      </iframe>
-    </div>
-  </div>
-  <!-- Sobre interactivo -->
-  <div class="envelope" id="envelope">
-    <img src="sobre.png" alt="Sobre cerrado" id="envelope-img">
-    <div class="photo">
-      <img src="uandi.jpeg" alt="Foto oculta">
-    </div>
-  </div>
-  <!-- Astronauta flotante -->
-  <img src="as.png" alt="Astronauta flotando" class="astronaut">
-  <script>
-    // Función para generar galaxias de forma aleatoria
-    function createGalaxies(numGalaxias) {
-      const galaxyField = document.getElementById("galaxyField");
-      for (let i = 0; i < numGalaxias; i++) {
-        const galaxy = document.createElement("div");
-        galaxy.className = "galaxy";
-        galaxy.style.top = Math.random() * 100 + "%";
-        galaxy.style.left = Math.random() * 100 + "%";
-        // Tamaño aleatorio entre 50px y 100px
-        const size = Math.random() * 50 + 50;
-        galaxy.style.width = size + "px";
-        galaxy.style.height = size + "px";
-        galaxyField.appendChild(galaxy);
+      /* Grano de arena */
+      .sand-grain {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        background: #c2b280;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(194, 178, 128, 0.8);
+        z-index: 3;
       }
-    }
-    createGalaxies(5);
 
-    // Función para generar estrellas estáticas de forma aleatoria
-    function createStars(numStars) {
-      const starField = document.getElementById("starField");
-      for (let i = 0; i < numStars; i++) {
-        const star = document.createElement("div");
-        star.className = "star";
-        star.style.top = Math.random() * 100 + "%";
-        star.style.left = Math.random() * 100 + "%";
-        // Variar la duración de la animación para un efecto más natural
-        star.style.animationDuration = Math.random() * 3 + 2 + "s";
-        starField.appendChild(star);
+      /* Estilos para el sobre interactivo */
+      .envelope {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 150px;
+        height: 100px;
+        cursor: pointer;
+        z-index: 4;
       }
-    }
-    createStars(1000);
 
-    // Función para crear una estrella fugaz
-    function createShootingStar() {
-      const starField = document.getElementById("starField");
-      const shootingStar = document.createElement("div");
-      shootingStar.className = "shooting-star";
-      // Posición inicial aleatoria para la estrella fugaz
-      shootingStar.style.top = Math.random() * 50 + "%";
-      shootingStar.style.left = Math.random() * 100 + "%";
-      starField.appendChild(shootingStar);
-      // Remover la estrella fugaz después de la animación
-      setTimeout(() => {
-        shootingStar.remove();
-      }, 1000);
-    }
-
-    // Función para generar estrellas fugaces a intervalos aleatorios
-    function randomShootingStar() {
-      setTimeout(() => {
-        createShootingStar();
-        randomShootingStar();
-      }, Math.random() * 3000 + 2000);
-    }
-    randomShootingStar();
-
-    // Toggle del sobre interactivo y cambio de contenido, estado y posición del astronauta
-    const envelope = document.getElementById("envelope");
-    const envelopeImg = document.getElementById("envelope-img");
-    const astronaut = document.querySelector('.astronaut');
-    const originalPoem = document.getElementById("original-poem");
-    const newPoem = document.getElementById("new-poem");
-
-    envelope.addEventListener("click", function () {
-      this.classList.toggle("open");
-      if (this.classList.contains("open")) {
-        envelopeImg.src = "open.png";
-        // Congelar y reposicionar el astronauta cerca del texto, aumentándolo de tamaño
-        astronaut.style.animationPlayState = "paused";
-        astronaut.style.top = "50%";
-        astronaut.style.left = "50%";
-        astronaut.style.width = "100px";
-        // Cambiar el contenido del poema
-        originalPoem.style.display = "none";
-        newPoem.style.display = "block";
-      } else {
-        envelopeImg.src = "sobre.png";
-        // Reanudar el movimiento del astronauta y restaurar su tamaño original
-        astronaut.style.animationPlayState = "running";
-        astronaut.style.width = "50px";
-        // Se elimina el posicionamiento inline para que la animación vuelva a controlar su posición
-        astronaut.style.top = "";
-        astronaut.style.left = "";
-        // Restaurar el contenido original del poema
-        originalPoem.style.display = "block";
-        newPoem.style.display = "none";
+      .envelope img {
+        width: 100%;
+        display: block;
       }
-    });
-  </script>
-</body>
 
+      .envelope .photo {
+        display: none;
+        position: absolute;
+        /* Ajusta el tamaño según prefieras */
+        width: 180px;
+        height: auto;
+        /* Desplaza la foto hacia arriba y la izquierda */
+        top: -80px;
+        left: -60px;
+      }
+
+      .envelope.open .photo {
+        display: block;
+      }
+
+      /* Animación opcional para la foto al abrirse */
+      .envelope.open .photo img {
+        animation: moveImage 3s ease-in-out infinite;
+      }
+
+      @keyframes moveImage {
+        0% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(5px, 5px);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+
+      /* Animación para el astronauta: recorrido continuo por la pantalla */
+      .astronaut {
+        position: absolute;
+        width: 50px;
+        z-index: 4;
+        animation: drift 60s ease-in-out infinite;
+      }
+
+      @keyframes drift {
+        0% {
+          top: 5%;
+          left: 5%;
+          transform: rotate(0deg);
+        }
+        20% {
+          top: 10%;
+          left: 80%;
+          transform: rotate(15deg);
+        }
+        40% {
+          top: 70%;
+          left: 75%;
+          transform: rotate(-10deg);
+        }
+        60% {
+          top: 80%;
+          left: 15%;
+          transform: rotate(5deg);
+        }
+        80% {
+          top: 40%;
+          left: 50%;
+          transform: rotate(-15deg);
+        }
+        100% {
+          top: 5%;
+          left: 5%;
+          transform: rotate(0deg);
+        }
+      }
+
+      /* Media Query para pantallas móviles */
+      @media (max-width: 600px) {
+        .envelope {
+          bottom: 10px;
+          right: 10px;
+          width: 120px;
+          height: 80px;
+        }
+        .envelope .photo {
+          top: -60px;
+          left: -40px;
+          width: 150px;
+        }
+        /* Ajusta el tamaño de los reproductores si es necesario */
+        .apple-music-player iframe {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Contenedor para las galaxias -->
+    <div class="galaxy-field" id="galaxyField"></div>
+    <!-- Campo de estrellas -->
+    <div class="star-field" id="starField"></div>
+    <!-- Representación de la luna -->
+    <div class="moon"></div>
+    <!-- Grano de arena -->
+    <div class="sand-grain"></div>
+    <!-- Contenido principal -->
+    <div class="content">
+      <h1>Paraíso Lunar</h1>
+      <!-- Contenedor con el poema original -->
+      <div id="original-poem">
+        <p class="poem">
+          Y así, en el infinito lienzo del cosmos, donde la ciencia y el amor se unen
+          poniendo a prueba la ley de atracción, nuestras almas se entrelazan desafiando
+          al tiempo y espacio.
+        </p>
+        <p class="poem">
+          Feliz día hoy y siempre, porque el amor es motivo de sentirse vivos. Te amo &#10084;
+        </p>
+      </div>
+      <!-- Contenedor con el nuevo mensaje, oculto inicialmente -->
+      <div id="new-poem" style="display: none;">
+        <p class="poem">
+          Gracias por este primer mes increíble a tu lado, no hay palabras que alcancen para decirte lo que me haces
+          sentir. &#10084;
+        </p>
+        <p class="poem">
+          Te amo más que ayer y menos que mañana, vivamos hoy y amémonos hoy. &#10084;
+        </p>
+      </div>
+      <!-- Reproductor de Apple Music para la primera canción -->
+      <div class="apple-music-player">
+        <iframe id="apple-music-iframe" allow="autoplay; encrypted-media" frameborder="0" height="150"
+          style="width: 100%; max-width: 660px; overflow: hidden; background: transparent;"
+          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+          src="https://embed.music.apple.com/mx/album/para%C3%ADso-lunar/1586251628?i=1586251636">
+        </iframe>
+      </div>
+      <!-- Reproductor de Apple Music para la segunda canción -->
+      <div class="apple-music-player">
+        <iframe id="apple-music-iframe2" allow="autoplay; encrypted-media" frameborder="0" height="150"
+          style="width: 100%; max-width: 660px; overflow: hidden; background: transparent;"
+          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+          src="https://embed.music.apple.com/mx/album/conmigo-siempre/1464557440?i=1464557447">
+        </iframe>
+      </div>
+    </div>
+    <!-- Sobre interactivo -->
+    <div class="envelope" id="envelope">
+      <img src="sobre.png" alt="Sobre cerrado" id="envelope-img">
+      <div class="photo">
+        <img src="uandi.jpeg" alt="Foto oculta">
+      </div>
+    </div>
+    <!-- Astronauta flotante -->
+    <img src="as.png" alt="Astronauta flotando" class="astronaut">
+    <script>
+      // Función para generar galaxias de forma aleatoria
+      function createGalaxies(numGalaxias) {
+        const galaxyField = document.getElementById("galaxyField");
+        for (let i = 0; i < numGalaxias; i++) {
+          const galaxy = document.createElement("div");
+          galaxy.className = "galaxy";
+          galaxy.style.top = Math.random() * 100 + "%";
+          galaxy.style.left = Math.random() * 100 + "%";
+          // Tamaño aleatorio entre 50px y 100px
+          const size = Math.random() * 50 + 50;
+          galaxy.style.width = size + "px";
+          galaxy.style.height = size + "px";
+          galaxyField.appendChild(galaxy);
+        }
+      }
+      createGalaxies(5);
+
+      // Función para generar estrellas estáticas de forma aleatoria
+      function createStars(numStars) {
+        const starField = document.getElementById("starField");
+        for (let i = 0; i < numStars; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.top = Math.random() * 100 + "%";
+          star.style.left = Math.random() * 100 + "%";
+          // Variar la duración de la animación para un efecto más natural
+          star.style.animationDuration = Math.random() * 3 + 2 + "s";
+          starField.appendChild(star);
+        }
+      }
+      createStars(1000);
+
+      // Función para crear una estrella fugaz
+      function createShootingStar() {
+        const starField = document.getElementById("starField");
+        const shootingStar = document.createElement("div");
+        shootingStar.className = "shooting-star";
+        // Posición inicial aleatoria para la estrella fugaz
+        shootingStar.style.top = Math.random() * 50 + "%";
+        shootingStar.style.left = Math.random() * 100 + "%";
+        starField.appendChild(shootingStar);
+        // Remover la estrella fugaz después de la animación
+        setTimeout(() => {
+          shootingStar.remove();
+        }, 1000);
+      }
+
+      // Función para generar estrellas fugaces a intervalos aleatorios
+      function randomShootingStar() {
+        setTimeout(() => {
+          createShootingStar();
+          randomShootingStar();
+        }, Math.random() * 3000 + 2000);
+      }
+      randomShootingStar();
+
+      // Toggle del sobre interactivo y cambio de contenido, estado y posición del astronauta
+      const envelope = document.getElementById("envelope");
+      const envelopeImg = document.getElementById("envelope-img");
+      const astronaut = document.querySelector('.astronaut');
+      const originalPoem = document.getElementById("original-poem");
+      const newPoem = document.getElementById("new-poem");
+
+      envelope.addEventListener("click", function () {
+        this.classList.toggle("open");
+        if (this.classList.contains("open")) {
+          envelopeImg.src = "open.png";
+          // Congelar y reposicionar el astronauta cerca del texto, aumentándolo de tamaño
+          astronaut.style.animationPlayState = "paused";
+          astronaut.style.top = "50%";
+          astronaut.style.left = "50%";
+          astronaut.style.width = "100px";
+          // Cambiar el contenido del poema
+          originalPoem.style.display = "none";
+          newPoem.style.display = "block";
+        } else {
+          envelopeImg.src = "sobre.png";
+          // Reanudar el movimiento del astronauta y restaurar su tamaño original
+          astronaut.style.animationPlayState = "running";
+          astronaut.style.width = "50px";
+          // Se elimina el posicionamiento inline para que la animación vuelva a controlar su posición
+          astronaut.style.top = "";
+          astronaut.style.left = "";
+          // Restaurar el contenido original del poema
+          originalPoem.style.display = "block";
+          newPoem.style.display = "none";
+        }
+      });
+    </script>
+  </body>
 </html>
