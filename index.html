@@ -36,20 +36,17 @@
     /* Estilo para cada galaxia */
     .galaxy {
       position: absolute;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(128, 0, 128, 0.2) 60%, rgba(0, 0, 0, 0) 100%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(128, 0, 128, 0.2) 60%, rgba(0,0,0,0) 100%);
       border-radius: 50%;
       opacity: 0.7;
       animation: pulse 5s ease-in-out infinite;
     }
 
     @keyframes pulse {
-
-      0%,
-      100% {
+      0%, 100% {
         transform: scale(1);
         opacity: 0.7;
       }
-
       50% {
         transform: scale(1.1);
         opacity: 1;
@@ -81,7 +78,6 @@
       0% {
         text-shadow: 0 0 10px #ff66cc, 0 0 20px #ff66cc, 0 0 30px #ff66cc;
       }
-
       100% {
         text-shadow: 0 0 20px #ff99cc, 0 0 30px #ff99cc, 0 0 40px #ff99cc;
       }
@@ -118,11 +114,9 @@
       0% {
         opacity: 0.2;
       }
-
       50% {
         opacity: 1;
       }
-
       100% {
         opacity: 0.2;
       }
@@ -144,7 +138,6 @@
         opacity: 1;
         transform: translate(0, 0) rotate(45deg);
       }
-
       100% {
         opacity: 0;
         transform: translate(-200px, 200px) rotate(45deg);
@@ -218,17 +211,13 @@
       0% {
         transform: translate(0, 0);
       }
-
       50% {
         transform: translate(5px, 5px);
       }
-
       100% {
         transform: translate(0, 0);
       }
     }
-
-
 
     /* Animación para el astronauta: recorrido continuo por la pantalla */
     .astronaut {
@@ -244,35 +233,45 @@
         left: 5%;
         transform: rotate(0deg);
       }
-
       20% {
         top: 10%;
         left: 80%;
         transform: rotate(15deg);
       }
-
       40% {
         top: 70%;
         left: 75%;
         transform: rotate(-10deg);
       }
-
       60% {
         top: 80%;
         left: 15%;
         transform: rotate(5deg);
       }
-
       80% {
         top: 40%;
         left: 50%;
         transform: rotate(-15deg);
       }
-
       100% {
         top: 5%;
         left: 5%;
         transform: rotate(0deg);
+      }
+    }
+
+    /* Media Query para pantallas móviles */
+    @media (max-width: 600px) {
+      .envelope {
+        bottom: 10px;
+        right: 10px;
+        width: 120px;
+        height: 80px;
+      }
+      .envelope .photo {
+        top: -60px;
+        left: -40px;
+        width: 150px;
       }
     }
   </style>
@@ -354,6 +353,7 @@
       }
     }
     createGalaxies(5);
+
     // Función para generar estrellas estáticas de forma aleatoria
     function createStars(numStars) {
       const starField = document.getElementById("starField");
@@ -368,6 +368,7 @@
       }
     }
     createStars(1000);
+
     // Función para crear una estrella fugaz
     function createShootingStar() {
       const starField = document.getElementById("starField");
@@ -382,6 +383,7 @@
         shootingStar.remove();
       }, 1000);
     }
+
     // Función para generar estrellas fugaces a intervalos aleatorios
     function randomShootingStar() {
       setTimeout(() => {
@@ -390,12 +392,14 @@
       }, Math.random() * 3000 + 2000);
     }
     randomShootingStar();
+
     // Toggle del sobre interactivo y cambio de contenido, estado y posición del astronauta
     const envelope = document.getElementById("envelope");
     const envelopeImg = document.getElementById("envelope-img");
     const astronaut = document.querySelector('.astronaut');
     const originalPoem = document.getElementById("original-poem");
     const newPoem = document.getElementById("new-poem");
+
     envelope.addEventListener("click", function () {
       this.classList.toggle("open");
       if (this.classList.contains("open")) {
